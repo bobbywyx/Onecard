@@ -1,6 +1,3 @@
-//
-// Created by yixin on 2022/10/21.
-//
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -11,9 +8,7 @@
 #include "player.h"
 #include "cli.h"
 
-//#define DEBUG3 // uncomment to debug mode
-//#define WINDOW_REQ
-//#define DEBUG_LIST
+#define WINDOW_REQ
 
 void server_init(int player_number, int cards_per_player, int decks, int round,bool auto_mode,char log_file_name[]) {
     srand((unsigned int) time(NULL));  // each game only need to generate once
@@ -32,7 +27,7 @@ void server_init(int player_number, int cards_per_player, int decks, int round,b
     if(cli.cols <= MIN_COLS || cli.lines <= MIN_LINES){
         printf("cli window too small, the minimum requirement is:\n%d columns and %d lines\n"
                "current:%d columns and %d lines\n",MIN_COLS,MIN_LINES,cli.cols,cli.lines);
-        exit(0);
+        exit(4);
     }
     printf("press enter to start\n");
     getchar();
@@ -116,9 +111,7 @@ void server_state_machine(Server *server) {
                         opt = request_player_opt(server->cli);
                     } while (opt == -2 || opt >= get_card_list_length(playable_cards) + 1); // -2 means invalid input
                 }
-#ifdef DEBUG3
-                printf("valid input\n");
-#endif
+
                 if (opt == 0) {  // draw a card
                     if (server->addings > 0) { // if there is +2 or +3 or more
                         for (; server->addings > 0; server->addings--) {
@@ -264,13 +257,6 @@ void server_decide_player_seq(Server *server) {
             }
         }
     }
-#ifdef DEBUG3
-    printf("seq: \n");
-    for (int i = 0; i < server->player_number; ++i) {
-        printf("%d  ", order[i]);
-    }
-    printf("\n");
-#endif
 
     Player **tmp_list = calloc((size_t) server->player_number, sizeof(Player *));
     if(tmp_list == NULL){
@@ -318,14 +304,6 @@ Player *server_seek_by_id(Server *server, int id) {
 
 Card server_pop_card(Server *server) {
     // return the last card of the pool and move the num pointer
-#ifdef DEBUG_LIST
-    printf("all cards:\n");
-    for (int i = 0; i < server->size_card_pool; ++i) {
-        display_card(server->card_pool[i], 's');
-    }
-#endif
-
-
     server->size_card_pool--;
     Card return_card = server->card_pool[server->size_card_pool];
 
@@ -345,11 +323,6 @@ Card server_pop_card(Server *server) {
             exit(1);
         }
     }
-
-#ifdef DEBUG3
-    printf("display the card that server just poped   ");
-    display_card(return_card, 's');
-#endif
 
     return return_card;
 }
@@ -588,9 +561,6 @@ int get_card_list_length(Card *list) {
     while (list[i].rank != R_Empty) {
         i++;
     }
-#ifdef DEBUG3
-    printf("max playable cards%d\n", i);
-#endif
     return i;
 }
 

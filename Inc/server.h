@@ -1,7 +1,3 @@
-//
-// Created by yixin on 2022/10/21.
-//
-
 #ifndef P2_SERVER_H
 #define P2_SERVER_H
 

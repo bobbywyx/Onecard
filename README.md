@@ -1,4 +1,4 @@
-# P2 - One Card Game
+# One Card Game
 
 ## About this game
 ```
@@ -80,3 +80,5 @@ give your choice(0 to draw card):
 2: card pool error
 
 3: player not found
+
+4: window too small

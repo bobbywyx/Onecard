@@ -1,7 +1,3 @@
-//
-// Created by yixin on 2022/10/30.
-//
-
 #ifndef P2_MAIN_H
 #define P2_MAIN_H
 

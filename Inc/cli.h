@@ -1,7 +1,3 @@
-//
-// Created by yixin on 2022/10/25.
-//
-
 #ifndef P2_CLI_H
 #define P2_CLI_H
 

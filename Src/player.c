@@ -1,24 +1,12 @@
-//
-// Created by yixin on 2022/10/21.
-//
 #include <stdlib.h>
 #include "player.h"
 #include "data_struct.h"
 #include "server.h"
 
-//#define DEBUG2
-
-#ifdef DEBUG2
-#include <stdio.h>
-#endif
 
 void player_draw_card(Player *player, Server *server) {
     if (player->size_card_list == player->card_num) {
         // when the list is not long enough, expand it by 1.5
-#ifdef DEBUG2
-        printf("-=-=-=-=resize player list from %d , to %d",player->size_card_list,(int)(player->size_card_list*1.5+1));
-#endif
-
         player->size_card_list = (int) ((double )player->size_card_list * 1.5+1);
         player->cards_in_hand = (Card *) realloc(player->cards_in_hand,(size_t)player->size_card_list * sizeof(Card));
         if (player->cards_in_hand == NULL) {
